@@ -27,15 +27,6 @@ app.get('/api', (_req: Request, res: Response) => {
         description: 'Get unsigned 0.10 SOL fee transaction',
         body: { wallet: 'string (Phantom wallet public key)' },
         create: 'POST /api/token/create',
-        description: 'Create SPL token (after fee is paid)',
-        body: {
-          wallet: 'string',
-          tokenName: 'string',
-          symbol: 'string',
-          supply: 'number | string',
-          feeTxSignature: 'string',
-          mintPublicKey: 'string'
-        }
       }
     },
     documentation: 'See README.md or API.md for detailed documentation'
