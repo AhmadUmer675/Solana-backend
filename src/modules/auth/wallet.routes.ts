@@ -12,4 +12,16 @@ const router = Router();
  */
 router.post('/connect', validatePublicKey, walletController.connectWallet);
 
+/**
+ * POST /api/wallet/disconnect
+ * Optional symmetry endpoint; no validation needed.
+ */
+router.post('/disconnect', walletController.disconnectWallet);
+
+/**
+ * POST /api/wallet/verify
+ * Stubbed signature verification.
+ */
+router.post('/verify', walletController.verifySignature);
+
 export default router;

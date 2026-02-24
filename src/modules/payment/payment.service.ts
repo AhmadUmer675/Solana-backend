@@ -42,9 +42,8 @@ export async function verifyFeePayment(
     if (tx.meta.err) return false;
 
     const accountKeys = tx.transaction.message.accountKeys;
-    const payerIndex = tx.transaction.message.header.numRequiredSignatures;
-    if (payerIndex < 1) return false;
-
+    // In parsed messages the payer is accountKeys[0]
+    if (!accountKeys || accountKeys.length === 0) return false;
     const payer = accountKeys[0];
     const payerPubkey = typeof payer === 'object' && 'pubkey' in payer
       ? (payer as { pubkey: PublicKey }).pubkey
