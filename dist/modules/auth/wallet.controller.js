@@ -12,10 +12,10 @@ const web3_js_1 = require("@solana/web3.js");
  */
 function validatePublicKey(req, res, next) {
     const wallet = (req.body?.wallet ?? req.query?.wallet);
-    if (!wallet || typeof wallet !== 'string') {
+    if (!wallet || typeof wallet !== "string") {
         res.status(400).json({
             success: false,
-            error: 'Missing or invalid wallet. Provide wallet (public key) in body or query.',
+            error: "Missing or invalid wallet. Provide wallet (public key) in body or query.",
         });
         return;
     }
@@ -23,7 +23,7 @@ function validatePublicKey(req, res, next) {
     if (!trimmed) {
         res.status(400).json({
             success: false,
-            error: 'Wallet address cannot be empty.',
+            error: "Wallet address cannot be empty.",
         });
         return;
     }
@@ -36,7 +36,7 @@ function validatePublicKey(req, res, next) {
     catch {
         res.status(400).json({
             success: false,
-            error: 'Invalid Solana public key format. Use a valid Phantom wallet address.',
+            error: "Invalid Solana public key format. Use a valid Phantom wallet address.",
         });
     }
 }
@@ -44,7 +44,7 @@ function validatePublicKey(req, res, next) {
  * Helper: validate public key from string. Returns PublicKey or null.
  */
 function parsePublicKey(value) {
-    if (!value || typeof value !== 'string')
+    if (!value || typeof value !== "string")
         return null;
     try {
         return new web3_js_1.PublicKey(value.trim());
@@ -65,21 +65,21 @@ async function connectWallet(req, res) {
         if (!wallet || !walletPubkey) {
             res.status(400).json({
                 success: false,
-                error: 'Wallet validation failed. Use validatePublicKey middleware.',
+                error: "Wallet validation failed. Use validatePublicKey middleware.",
             });
             return;
         }
         res.status(200).json({
             success: true,
             wallet,
-            message: 'Wallet connected successfully. You can now create tokens.',
+            message: "Wallet connected successfully. You can now create tokens.",
         });
     }
     catch (err) {
-        console.error('Wallet connect error:', err);
+        console.error("Wallet connect error:", err);
         res.status(500).json({
             success: false,
-            error: err instanceof Error ? err.message : 'Failed to connect wallet.',
+            error: err instanceof Error ? err.message : "Failed to connect wallet.",
         });
     }
 }
@@ -91,14 +91,14 @@ async function disconnectWallet(req, res) {
     try {
         res.status(200).json({
             success: true,
-            message: 'Wallet disconnected successfully.',
+            message: "Wallet disconnected successfully.",
         });
     }
     catch (err) {
-        console.error('Wallet disconnect error:', err);
+        console.error("Wallet disconnect error:", err);
         res.status(500).json({
             success: false,
-            error: err instanceof Error ? err.message : 'Failed to disconnect wallet.',
+            error: err instanceof Error ? err.message : "Failed to disconnect wallet.",
         });
     }
 }
@@ -112,20 +112,20 @@ async function verifySignature(req, res) {
         if (!wallet || !signature || !message) {
             res.status(400).json({
                 success: false,
-                error: 'Missing wallet, signature, or message.',
+                error: "Missing wallet, signature, or message.",
             });
             return;
         }
         res.status(200).json({
             success: true,
-            message: 'Signature verification completed.',
+            message: "Signature verification completed.",
         });
     }
     catch (err) {
-        console.error('Signature verification error:', err);
+        console.error("Signature verification error:", err);
         res.status(500).json({
             success: false,
-            error: err instanceof Error ? err.message : 'Failed to verify signature.',
+            error: err instanceof Error ? err.message : "Failed to verify signature.",
         });
     }
 }

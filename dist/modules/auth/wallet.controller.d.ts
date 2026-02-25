@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import { PublicKey } from '@solana/web3.js';
+import { Request, Response, NextFunction } from "express";
+import { PublicKey } from "@solana/web3.js";
 /**
  * Validates Solana public key format (Phantom wallet address).
  * Use as middleware or helper. Does NOT access private keys or seed phrases.
