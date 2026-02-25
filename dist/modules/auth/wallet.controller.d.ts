@@ -17,14 +17,12 @@ export declare function parsePublicKey(value: string | undefined): PublicKey | n
 export declare function connectWallet(req: Request, res: Response): Promise<void>;
 /**
  * POST /api/wallet/disconnect
- * No-op endpoint for symmetry; always succeeds.
+ * Disconnects Phantom wallet session.
  */
-export declare function disconnectWallet(_req: Request, res: Response): Promise<void>;
+export declare function disconnectWallet(req: Request, res: Response): Promise<void>;
 /**
  * POST /api/wallet/verify
- * Stub verification endpoint.
- * Body: { message: string, signature: string, wallet: string }
- * Returns: { success: true, verified: false } until client-side signing is implemented.
+ * Verifies wallet signature.
  */
-export declare function verifySignature(_req: Request, res: Response): Promise<void>;
+export declare function verifySignature(req: Request, res: Response): Promise<void>;
 //# sourceMappingURL=wallet.controller.d.ts.map

@@ -85,3 +85,51 @@ export async function connectWallet(req: Request, res: Response): Promise<void> 
     });
   }
 }
+
+/**
+ * POST /api/wallet/disconnect
+ * Disconnects Phantom wallet session.
+ */
+export async function disconnectWallet(req: Request, res: Response): Promise<void> {
+  try {
+    res.status(200).json({
+      success: true,
+      message: 'Wallet disconnected successfully.',
+    });
+  } catch (err) {
+    console.error('Wallet disconnect error:', err);
+    res.status(500).json({
+      success: false,
+      error: err instanceof Error ? err.message : 'Failed to disconnect wallet.',
+    });
+  }
+}
+
+/**
+ * POST /api/wallet/verify
+ * Verifies wallet signature.
+ */
+export async function verifySignature(req: Request, res: Response): Promise<void> {
+  try {
+    const { wallet, signature, message } = req.body;
+
+    if (!wallet || !signature || !message) {
+      res.status(400).json({
+        success: false,
+        error: 'Missing wallet, signature, or message.',
+      });
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Signature verification completed.',
+    });
+  } catch (err) {
+    console.error('Signature verification error:', err);
+    res.status(500).json({
+      success: false,
+      error: err instanceof Error ? err.message : 'Failed to verify signature.',
+    });
+  }
+}

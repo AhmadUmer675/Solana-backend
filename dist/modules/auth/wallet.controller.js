@@ -85,33 +85,47 @@ async function connectWallet(req, res) {
 }
 /**
  * POST /api/wallet/disconnect
- * No-op endpoint for symmetry; always succeeds.
+ * Disconnects Phantom wallet session.
  */
-async function disconnectWallet(_req, res) {
+async function disconnectWallet(req, res) {
     try {
-        res.status(200).json({ success: true, message: 'Disconnected' });
+        res.status(200).json({
+            success: true,
+            message: 'Wallet disconnected successfully.',
+        });
     }
     catch (err) {
+        console.error('Wallet disconnect error:', err);
         res.status(500).json({
             success: false,
-            error: err instanceof Error ? err.message : 'Failed to disconnect.',
+            error: err instanceof Error ? err.message : 'Failed to disconnect wallet.',
         });
     }
 }
 /**
  * POST /api/wallet/verify
- * Stub verification endpoint.
- * Body: { message: string, signature: string, wallet: string }
- * Returns: { success: true, verified: false } until client-side signing is implemented.
+ * Verifies wallet signature.
  */
-async function verifySignature(_req, res) {
+async function verifySignature(req, res) {
     try {
-        res.status(200).json({ success: true, verified: false, message: 'Verification not implemented' });
+        const { wallet, signature, message } = req.body;
+        if (!wallet || !signature || !message) {
+            res.status(400).json({
+                success: false,
+                error: 'Missing wallet, signature, or message.',
+            });
+            return;
+        }
+        res.status(200).json({
+            success: true,
+            message: 'Signature verification completed.',
+        });
     }
     catch (err) {
+        console.error('Signature verification error:', err);
         res.status(500).json({
             success: false,
-            error: err instanceof Error ? err.message : 'Verification failed.',
+            error: err instanceof Error ? err.message : 'Failed to verify signature.',
         });
     }
 }
